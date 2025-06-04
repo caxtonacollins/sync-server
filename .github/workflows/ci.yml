@@ -1,4 +1,3 @@
-# .github/workflows/ci.yml
 name: CI
 
 on:
@@ -37,14 +36,20 @@ jobs:
         with:
           node-version: 20
 
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Set Yarn version to 4.9.1
+        run: corepack prepare yarn@4.9.1 --activate
+
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Generate Prisma client
-        run: yarn prisma generate
+      # - name: Generate Prisma client
+      #   run: yarn prisma generate
 
-      - name: Run Prisma migrations
-        run: yarn prisma migrate deploy
+      # - name: Run Prisma migrations
+      #   run: yarn prisma migrate deploy
 
       - name: Lint
         run: yarn lint
